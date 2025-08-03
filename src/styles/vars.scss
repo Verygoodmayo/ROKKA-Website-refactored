@@ -1,0 +1,49 @@
+$base-size: 2px;
+
+$size-1: $base-size * 1;
+$size-2: $base-size * 2;
+$size-3: $base-size * 3;
+$size-4: $base-size * 4;
+$size-5: $base-size * 5;
+$size-6: $base-size * 6;
+$size-7: $base-size * 7;
+$size-8: $base-size * 8;
+$size-9: $base-size * 9;
+$size-10: $base-size * 10;
+
+// Colors
+$color-black: #000;
+$color-white: #fff;
+$bg-color: #fff;
+$border-color: #000;
+
+
+// ROKKA Frame 
+$rokka-frame-base-color: $bg-color;
+$rokka-frame-border-color: $border-color;
+$rokka-frame-padding: 30px 0px 30px 0px;
+$corner-size: 30px;
+$side-width: $corner-size;
+
+
+// Z-index Control
+$menu-z-index: 100;
+
+// Typography
+$font-size-10: 10px;
+$font-size-12: 12px;
+$font-size-14: 14px;
+$font-size-16: 16px;
+$font-size-18: 18px;
+$font-size-20: 20px;
+$font-size-22: 22px;
+$font-size-24: 24px;
+
+// Font Family 
+$primary-font: 'IBM Plex Sans', sans-serif;
+$secondary-font: 'IBM Plex Mono', monospace;
+
+// Transition
+$transition-fast: 0.3s ease;
+$transition-medium: 0.5s ease;
+$transition-slow: 1s ease;

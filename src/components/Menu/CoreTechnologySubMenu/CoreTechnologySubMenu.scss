@@ -1,0 +1,45 @@
+@use '../../../styles/vars.scss';
+
+.core-technology-sub-menu {
+    position: absolute;
+    top: 80%;
+    left: 50%;
+    z-index: vars.$menu-z-index;
+    transition: vars.$transition-fast;
+    
+    * {
+        transition: vars.$transition-fast !important;
+    }
+
+    .content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: vars.$size-10;
+    }
+
+    .core-technology-sub-menu-content-wrapper {
+
+        .core-technology-sub-menu-item {
+
+            &.open {
+                opacity:  1;
+            }
+
+            &.closed {
+                opacity: 0;
+            }
+        }
+    }
+
+    &.open {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    &.closed {
+        // height: 0px;
+        opacity: 0;
+        pointer-events: none;
+    }   
+}

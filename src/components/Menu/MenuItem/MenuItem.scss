@@ -1,0 +1,48 @@
+@use '../../../styles/vars.scss';
+
+.menu-item {
+    position: relative;
+    font-size: vars.$size-10;
+    font-weight: 600;
+    color: vars.$color-black;
+    text-decoration: none;
+    cursor: pointer;
+    transition: vars.$transition-fast;
+    font-family: vars.$primary-font;
+    font-weight: 400;
+    font-size: vars.$font-size-16;
+    padding-top: 5px;
+    padding-bottom: 5px;
+
+    a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 1px;
+        background-color: vars.$color-black;
+        transition: vars.$transition-fast;
+    }
+
+    div::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0%;
+        height: 1px;
+        background-color: vars.$color-black;
+        transition: vars.$transition-fast;
+    }
+}
+
+.menu-item:hover {
+    a::after {
+        width: 100%;
+    }
+
+    div::after {
+        width: 100%;
+    }
+}

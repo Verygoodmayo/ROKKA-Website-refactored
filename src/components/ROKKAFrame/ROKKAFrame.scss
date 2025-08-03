@@ -1,0 +1,52 @@
+@use '../../styles/vars.scss';
+
+.rokka-frame {
+    position: relative;
+    // width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    z-index: 1;
+
+    .side {
+        position: relative;
+        width: vars.$side-width;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .corner {
+            position: relative;
+            width: vars.$corner-size;
+            height: vars.$corner-size;
+            z-index: 2;
+            // background-color: #000;
+        }
+
+        .filler {
+            position: relative;
+            width: calc(100% + 2px);
+            height: calc(100% + 2px);
+            flex: 1;
+            background-color: vars.$rokka-frame-base-color;
+            border-left: 1px solid vars.$rokka-frame-border-color;
+            border-bottom: 1px solid vars.$rokka-frame-border-color;
+            background-color: vars.$rokka-frame-base-color;
+            z-index: 3;
+        }
+    }
+
+    .side:last-child {
+        transform: rotate(180deg);
+    }
+
+    .content-wrapper {
+        flex: 1;
+        padding: vars.$rokka-frame-padding;
+        border-top: 1px solid vars.$rokka-frame-border-color;
+        border-bottom: 1px solid vars.$rokka-frame-border-color; 
+        background-color: vars.$rokka-frame-base-color;
+        z-index: 5;
+    }
+}

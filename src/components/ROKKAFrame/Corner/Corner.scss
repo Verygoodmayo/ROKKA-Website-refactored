@@ -1,0 +1,25 @@
+@use '../../../styles/vars.scss';
+
+.corner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    // background-color: red;
+    overflow: hidden;
+    background-color: transparent;
+
+    .cornerSVG {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .fillLayer {
+            fill: vars.$rokka-frame-base-color;
+        }
+
+        .lineLayer {
+            fill: none;
+            stroke: vars.$rokka-frame-border-color;
+        }
+    }
+}
