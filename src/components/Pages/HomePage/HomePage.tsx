@@ -1,59 +1,120 @@
-import DIagramSection from "./DiagramSection/DIagramSection";
-import HeroSection from "./HeroSection/HeroSection";
-import ROKKASection from "./ROKKASection/ROKKASection";
-import ValuesSection from "./ValuesSection/ValuesSection";
-import ParkSketch from "../../Sketchs/ParkSketch/ParkSketch";
-import gsap from "gsap";
-import { useLayoutEffect, useMemo, useState } from "react";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Points } from "three";
-import { Canvas } from "@react-three/fiber";
+// src/components/Pages/HomePage/HomePage.tsx
+import { memo, useRef, useEffect, useMemo } from 'react';
+import { PerspectiveCamera } from '@react-three/drei';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { Points } from 'three';
+
+import DIagramSection from './DiagramSection/DIagramSection';
+import HeroSection from './HeroSection/HeroSection';
+import ROKKASection from './ROKKASection/ROKKASection';
+import ValuesSection from './ValuesSection/ValuesSection';
+import Footer from '../../Footer/Footer';
+import ParkSketch from '../../Sketchs/ParkSketch/ParkSketch';
+import BackgroundSketch from '../../Sketchs/BackgroundSketch/BackgroundSketch';
 import './HomePage.scss';
 
-export default function HomePage() {
+// The self-contained scene for the park sketch with YOUR restored animation
+export const ParkScene = () => {
+    const meshRef = useRef<Points>(null);
+    const cameraRef = useRef<any>(null);
 
-    const [mesh, setMesh] = useState<Points | null>(null);
-    
-    const meshPosition = useMemo(() => ({
-        x: 5,
-        y: 0,
-        z: -80
+    const uniforms = useMemo(() => ({
+        frequency: { value: 0.022 },
+        amplitude: { value: 1.566 },
+        maxDistance: { value: 0.243 },
     }), []);
 
-    useLayoutEffect(() => {
-        if (!mesh) {
-            return;
-        }
-        
+    useEffect(() => {
         gsap.registerPlugin(ScrollTrigger);
+        if (cameraRef.current && meshRef.current) {
+            const camera = cameraRef.current;
+            
+            gsap.set(camera.position, { z: 200 });
+            gsap.set(uniforms.frequency, { value: 0.022 });
+            gsap.set(uniforms.amplitude, { value: 1.566 });
+            gsap.set(uniforms.maxDistance, { value: 0.243 });
 
-        const masterTimeline = gsap.timeline();
-        masterTimeline.to(mesh.position, {
-            z: 80,
-            ease: 'power2.inOut',
-            scrollTrigger: {
-                trigger: '.hero-section',
+            const masterTimeline = gsap.timeline();
+            const cameraTransitionDuration = 10;
+            const particleTransitionDuration = 4.5;
+
+            const cameraTransitionTimeline = gsap.timeline()
+                .to(camera.position, {
+                    z: -200,
+                    duration: cameraTransitionDuration,
+                    ease: 'power2.inOut'
+                }, 0)
+                .to(camera.rotation, {
+                    y: Math.PI * 1,
+                    duration: 2,
+                    ease: 'power2.inOut'
+                }, '>-5.5');
+
+            const particleTransitionToOrderTimeline = gsap.timeline()
+                .to(uniforms.frequency, { value: 0.022, duration: particleTransitionDuration, ease: 'power2.inOut' })
+                .to(uniforms.amplitude, { value: 1.952, duration: particleTransitionDuration, ease: 'power2.inOut' }, '<')
+                .to(uniforms.maxDistance, { value: 2.504, duration: particleTransitionDuration, ease: 'power2.inOut' }, '<');
+            const particleTransitionToChaosTimeline = gsap.timeline()
+                .to(uniforms.frequency, { value: 0.011, duration: particleTransitionDuration, ease: 'power2.inOut' })
+                .to(uniforms.amplitude, { value: 1.566, duration: particleTransitionDuration, ease: 'power2.inOut' }, '<')
+                .to(uniforms.maxDistance, { value: 0.243, duration: particleTransitionDuration, ease: 'power2.inOut' }, '<');
+            
+            masterTimeline
+                .add(cameraTransitionTimeline, 0)
+                .add(particleTransitionToOrderTimeline, 0)
+                .add(particleTransitionToChaosTimeline, ">-1");
+
+            ScrollTrigger.create({
+                trigger: '.page-content',
                 start: 'top top',
-                end: 'bottom top',
-                scrub: true,
+                end: '+=50% bottom',
+                scrub: 0.5,
                 markers: true,
-            }
-        })
-        
-    }, [mesh])
-
+                animation: masterTimeline,
+            });
+        }
+    }, [uniforms]);
 
     return (
-        <div className="home-page page">
-            <Canvas className="home-page-canvas">
-                <ParkSketch ref={setMesh} meshPosition={meshPosition} />
-            </Canvas>
-            <div className="home-page-content">
+        <>
+            <PerspectiveCamera ref={cameraRef} makeDefault fov={50} />
+            <ParkSketch ref={meshRef} specialUniforms={uniforms} frustumCulled={false}/>
+        </>
+    );
+};
+
+// The self-contained scene for the footer background
+export const FooterScene = () => {
+    return (
+        <>
+            <color attach="background" args={['#131bff']} />
+            <PerspectiveCamera makeDefault fov={50} position={[0, 0, 5]} />
+            <BackgroundSketch />
+        </>
+    );
+};
+
+interface HomePageProps {
+    parkViewRef: React.RefObject<HTMLDivElement>;
+    footerViewRef: React.RefObject<HTMLDivElement>;
+}
+
+const HomePage = memo(({ parkViewRef, footerViewRef }: HomePageProps) => {
+    return (
+        <div className="home-page-container">
+            <div ref={parkViewRef} className="park-fixed-viewport" />
+            <div className="page-content">
                 <HeroSection />
-                <ValuesSection />
                 <ROKKASection />
+                <ValuesSection />
                 <DIagramSection />
+                <Footer ref={footerViewRef} />
             </div>
         </div>
-    )
-}
+    );
+});
+
+HomePage.displayName = 'HomePage';
+
+export default HomePage;

@@ -1,51 +1,60 @@
 import ParticlesGeometry from '../ParticlesGeomertry/ParticlesGeometry';
 import vertexShader from '../../../assets/GLSL/vertex2.glsl?raw';
 import fragmentShader from '../../../assets/GLSL/fragment2.glsl?raw';
-import { Points, ShaderMaterial, Vector2 } from 'three';
-
+import { Color, Points, ShaderMaterial, Vector2, Vector3 } from 'three';
 import { useFrame, useThree } from '@react-three/fiber';
-import { forwardRef, useRef } from 'react';
+import { forwardRef, useMemo, useRef } from 'react';
 
 interface ParticlesMeshProps {
     GLBModel: string | null;
-    defaultUniforms: any;
-    meshPosition: {x: number, y: number, z: number};
+    specialUniforms: any;
+    position?: [number, number, number];
+    rotation?: [number, number, number];
+    frustumCulled?: boolean;
 }
 
-const ParticlesMesh = forwardRef<Points, ParticlesMeshProps>(({GLBModel, defaultUniforms, meshPosition}, ref) => {
-
+const ParticlesMesh = forwardRef<Points, ParticlesMeshProps>(({ GLBModel, specialUniforms, position, rotation, frustumCulled }, ref) => {
     const materialRef = useRef<ShaderMaterial>(null);
+    const { viewport } = useThree();
 
-    const { width, height } = useThree((state) => state.viewport);
+    const uniforms = useMemo(() => {
+        const defaultUniforms = {
+            frequency: { value: 0.022 },
+            amplitude: { value: 1.346 },
+            maxDistance: { value: 0.133 },
+            particleSize: { value: 200.1 },
+            u_color: { value: new Color('#3705ff') },
+            colorIntensity: { value: 0.01 },
+            noiseOffset: { value: new Vector3(0, 0, 0) },
+            noiseSeed: { value: Math.random() },
+        };
 
-    // Update the uniforms every frame
+        return {
+            u_time: { value: 0 },
+            u_resolution: { value: new Vector2(viewport.width, viewport.height) },
+            u_mouse: { value: new Vector2(0, 0) },
+            ...defaultUniforms,
+            ...specialUniforms,
+        }
+    }, [specialUniforms, viewport.width, viewport.height]);
+
     useFrame(({ clock }) => {
         if (materialRef.current) {
             materialRef.current.uniforms.u_time.value = clock.getElapsedTime();
-            materialRef.current.uniforms.u_resolution.value = new Vector2(width, height);
         }
     });
 
     return (
-        <points ref={ref} position={[meshPosition.x, meshPosition.y, meshPosition.z]} rotation={[0, Math.PI / 3, 0]}>
-
+        <points ref={ref} position={position} rotation={rotation} frustumCulled={frustumCulled}>
             <ParticlesGeometry GLBModel={GLBModel} />
-    
             <shaderMaterial
                 ref={materialRef}
-                uniforms={
-                    {
-                        u_time: { value: 0 },
-                        u_resolution: { value: new Vector2(width, height) },
-                        u_mouse: { value: new Vector2(0, 0) },
-                        ...defaultUniforms
-                    }
-                }
+                uniforms={uniforms}
                 vertexShader={vertexShader}
                 fragmentShader={fragmentShader}
             />
         </points>
-    )
+    );
 });
 
 ParticlesMesh.displayName = 'ParticlesMesh';

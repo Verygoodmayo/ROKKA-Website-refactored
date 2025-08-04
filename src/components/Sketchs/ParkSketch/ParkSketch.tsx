@@ -1,40 +1,30 @@
-import { Color, Points, Vector3 } from 'three'
+// src/components/Sketchs/ParkSketch/ParkSketch.tsx
 import ParkModel from '../../../assets/GLB/ParkModel.glb?url'
 import ParticlesSketch from '../ParticlesSketch/ParticlesSketch'
 import './ParkSketch.scss'
-import { memo, forwardRef, useMemo } from 'react'
+import { forwardRef } from 'react'
+import { Color, Points } from 'three';
 
 interface ParkSketchProps {
-    meshPosition: {x: number, y: number, z: number};
+    specialUniforms?: any;
+    frustumCulled?: boolean;
 }
 
-const ParkSketch = memo(forwardRef<Points, ParkSketchProps>((props, ref) => {
-
-    const specialUniforms = useMemo(() => ({
-        frequency: { value: 100. },
-        amplitude: { value: 20. },
-        maxDistance: { value: 25. },
-
+const ParkSketch = forwardRef<Points, ParkSketchProps>(({ specialUniforms, frustumCulled }, ref) => {
+    const baseUniforms = {
+        u_color: { value: new Color('#131bff') },
         particleSize: { value: 100.1 },
-        u_color: { value: new Color('#ff0000') },
-        colorIntensity: { value: 0.01 },
-
-        noiseOffset: { value: new Vector3(0, 0, 0) },
-        noiseSeed: { value: Math.random() },
-    }), []);
-
+    };
+    
     return (
-        <div className="park-sketch">
-            <ParticlesSketch 
-                ref={ref}
-                className="park-sketch" 
-                GLBModel={ParkModel} 
-                specialUniforms={specialUniforms} 
-                meshPosition={props.meshPosition}
-            />
-        </div>
+        <ParticlesSketch 
+            ref={ref}
+            GLBModel={ParkModel} 
+            specialUniforms={{...baseUniforms, ...specialUniforms}} 
+            frustumCulled={frustumCulled}
+        />
     )
-}));
+});
 
 ParkSketch.displayName = 'ParkSketch';
 

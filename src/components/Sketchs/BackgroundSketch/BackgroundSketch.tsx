@@ -1,9 +1,27 @@
+import './BackgroundSketch.scss'
 import ParticlesSketch from "../ParticlesSketch/ParticlesSketch";
+import { forwardRef } from 'react';
+import { Color, Points } from 'three';
 
-export default function BackgroundSketch() {
+const BackgroundSketch = forwardRef<Points>((_props, ref) => {
+    const specialUniforms = {
+        particleSize: { value: 50.12 },
+        frequency: { value: 0.012 },
+        amplitude: { value: 0.366 },
+        maxDistance: { value: 0.243 },
+        u_color: { value: new Color('#ffffff') },
+    }
+
     return (
-        <div className="background-sketch">
-           <ParticlesSketch className="background-sketch-particles" GLBModel={null} />
-        </div>
-    )
-}
+        <ParticlesSketch 
+            ref={ref}
+            GLBModel={null} 
+            specialUniforms={specialUniforms} 
+            position={[0, 0, 0]}
+        />
+    );
+});
+
+BackgroundSketch.displayName = 'BackgroundSketch';
+
+export default BackgroundSketch;

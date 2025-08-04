@@ -1,19 +1,28 @@
-.home-page {
+// src/components/Pages/HomePage/HomePage.scss
+.home-page-container {
     position: relative;
     width: 100%;
-    height: 100%;
+}
 
-    .home-page-canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
+.park-fixed-viewport {
+    // This div is fixed to the screen and acts as the background
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1; // Keep it behind the content
+}
 
-    .home-page-content {
-        position: relative;
-        z-index: 1;
-    }
+.page-content {
+    // The page content scrolls on top of the fixed background
+    position: relative;
+    z-index: 1;
+    background-color: transparent; // See through to the park sketch
+}
+
+.footer {
+    height: 100vh;
+    width: 100%;
+    position: relative;
 }
