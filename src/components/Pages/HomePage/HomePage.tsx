@@ -5,7 +5,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { Points } from 'three';
 
-import DIagramSection from './DiagramSection/DIagramSection';
+import DiagramSection from './DiagramSection/DiagramSection';
 import HeroSection from './HeroSection/HeroSection';
 import ROKKASection from './ROKKASection/ROKKASection';
 import ValuesSection from './ValuesSection/ValuesSection';
@@ -70,7 +70,7 @@ export const ParkScene = () => {
                 start: 'top top',
                 end: '+=50% bottom',
                 scrub: 0.5,
-                markers: true,
+                // markers: true,
                 animation: masterTimeline,
             });
         }
@@ -108,7 +108,7 @@ const HomePage = memo(({ parkViewRef, footerViewRef }: HomePageProps) => {
                 <HeroSection />
                 <ROKKASection />
                 <ValuesSection />
-                <DIagramSection />
+                <DiagramSection />
                 <Footer ref={footerViewRef} />
             </div>
         </div>

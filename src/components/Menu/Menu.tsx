@@ -7,7 +7,15 @@ import CoreTechnologySubMenu from "./CoreTechnologySubMenu/CoreTechnologySubMenu
 import { useState } from "react"
 
 
-export default function Menu({state, changeState}: {state: boolean, changeState: (state: boolean) => void}) {
+interface MenuProps {
+    state: boolean;
+    changeState: (state: boolean) => void;
+    modalWindowState: boolean;
+    setModalWindowState: (state: boolean) => void;
+}
+
+
+export default function Menu({state, changeState, modalWindowState, setModalWindowState}: MenuProps) {
 
     const [isCoreTechnologySubMenuOpen, setIsCoreTechnologySubMenuOpen] = useState(false);
 
@@ -20,10 +28,25 @@ export default function Menu({state, changeState}: {state: boolean, changeState:
         return;
     }
 
+    const handleModalWindowChangeState = (state: boolean) => {
+        if (!state) {
+            setModalWindowState(true);
+            return;
+        } 
+        setModalWindowState(false);
+        return;
+    }
+
     return (
         <div className={`menu ${state ? 'open' : 'closed'}`}
-            onMouseLeave={() => changeState(false)}
-            onMouseEnter={() => changeState(true)}
+            onMouseLeave={() => {
+                changeState(false);
+                setIsCoreTechnologySubMenuOpen(false);
+            }}
+            onMouseEnter={() => {
+                changeState(true);
+                setIsCoreTechnologySubMenuOpen(false);
+            }}
         >
             <ROKKAFrame content={
                 <>
@@ -32,9 +55,19 @@ export default function Menu({state, changeState}: {state: boolean, changeState:
                     </div>
 
                     <div className="menu-items">
-                        {menuItems.map((item) => (
-                            <MenuItem key={item.label} {...item} itemClass={`menu-item ${item.label}`} hasSubMenu={item.hasSubMenu} subMenuChangeState={() => item.hasSubMenu ? handleSubMenuChangeState(isCoreTechnologySubMenuOpen) : null}/>
-                        ))}
+                        {
+                            menuItems.map((item,index) => (
+
+                                <MenuItem 
+                                        key={`${item.label}-${index}`} {...item} 
+                                        itemClass={`menu-item-${index}`} 
+                                        hasSubMenu={item.hasSubMenu}
+                                        subMenuState={isCoreTechnologySubMenuOpen}
+                                        subMenuChangeState={() => item.hasSubMenu ? handleSubMenuChangeState(isCoreTechnologySubMenuOpen) : null}
+                                        hasModalWindow={item.hasModalWindow}
+                                        modalWindowChangeState={() => item.hasModalWindow ? handleModalWindowChangeState(modalWindowState) : null}/>
+                            ))
+                        }
                     </div>
                 </>
             } 

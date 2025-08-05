@@ -1,0 +1,22 @@
+@use '../../../styles/vars.scss';
+
+.button-skelaton {
+    position: relative;
+    // width: auto;
+    // display: flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 500px;
+    border: 1px solid vars.$border-color-light;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    .label {
+        position: relative;
+        font-size: 14px;
+        font-weight: 300;
+        white-space: nowrap;
+    }
+}

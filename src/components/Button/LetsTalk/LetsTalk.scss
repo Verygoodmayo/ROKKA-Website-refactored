@@ -1,0 +1,16 @@
+@use '../../../styles/vars.scss';
+
+.lets-talk {
+    position: relative;
+    display: flex;
+
+    .button-skelaton {
+        background-color: vars.$color-white;
+        color: vars.$color-black;
+
+        .label {
+            color: vars.$color-black;
+        }
+    }
+}
+

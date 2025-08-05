@@ -4,6 +4,8 @@ export type menuItemSchema = {
     icon: string | null;
     hasSubMenu: boolean;
     subMenuChangeState: (state: boolean) => void;
+    hasModalWindow: boolean;
+    modalWindowChangeState: (state: boolean) => void;
 }
 
 
@@ -14,6 +16,8 @@ export const menuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},
     },
     {
         label: 'Core Technology',
@@ -21,6 +25,8 @@ export const menuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: true,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},
     },
     {
         label: 'Plugins',
@@ -28,6 +34,8 @@ export const menuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},   
     },
     {
         label: 'About',
@@ -35,6 +43,8 @@ export const menuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: true,
+        modalWindowChangeState: () => {},
     },
     
 ]
@@ -46,6 +56,8 @@ export const CoreTechnologySubMenuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},
     },
 
     {
@@ -54,6 +66,8 @@ export const CoreTechnologySubMenuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},
     },
 
     {
@@ -62,6 +76,8 @@ export const CoreTechnologySubMenuItems: menuItemSchema[] = [
         icon: null,
         hasSubMenu: false,
         subMenuChangeState: () => {},
+        hasModalWindow: false,
+        modalWindowChangeState: () => {},
     },
     
     

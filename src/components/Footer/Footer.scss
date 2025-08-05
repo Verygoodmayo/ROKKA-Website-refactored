@@ -1,8 +1,142 @@
 // src/components/Footer/Footer.scss
 @use '../../styles/vars.scss';
 
+$padding: 30px;
+
 .footer {
     position: relative;
     width: 100vw;
     height: 100vh;
+    display: flex;
+    flex-direction: column;
+    color: vars.$color-white;
+    z-index: vars.$footer-z-index;
+    
+    .top-section {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+
+        .info-section {
+            position: relative;
+            width: 300px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid vars.$border-color-light;
+            padding: $padding;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 45px;
+
+            .logotype {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: flex-start;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
+
+            .action-buttons {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 20px;
+                // width: auto;
+                
+                .lets-talk {
+                    position: relative;
+                    width: auto;
+                }
+
+                .schedule-a-meeting {
+                    position: relative;
+                    width: auto;
+                }
+            }
+
+            .social-media {
+                position: relative;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                font-size: 14px;
+                gap: 20px;
+            }
+
+            .contact {
+                font-size: 14px;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
+
+            .copyright {
+                font-size: 9px;
+            }
+            
+        }
+
+        .products-section {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: row;
+            padding: $padding;
+
+            .nav-section {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
+
+    .bottom-section {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        flex-direction: row;
+        padding: $padding;
+        border-top: 1px solid vars.$border-color-light;
+        gap: 30px;
+
+        
+    
+        a::after {
+            
+            position: relative;
+            content: '';
+            display: block;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background-color: vars.$color-white;
+        }
+    
+        a:last-child::after {
+            display: none;
+        }
+        
+    }
+
+    a {
+        font-size: 14px;
+        position: relative;
+        color: vars.$color-white;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 30px;
+    }
+
 }

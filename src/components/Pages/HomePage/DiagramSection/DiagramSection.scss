@@ -1,4 +1,32 @@
+@use '../../../../styles/vars.scss';
+
+$padding: 45px;
+
 .diagram-section {
     width: 100%;
-    min-height: 100vh;
+    height: auto;
+    min-height: 0px !important;
+    background: vars.$bg-color;
+    border-top: 1px solid vars.$border-color;
+    overflow-x: auto;
+
+    .diagram-section-header {
+        width: 100%;
+        background: vars.$bg-color;
+        border-bottom: 1px solid vars.$border-color;
+        padding: $padding;
+    }
+
+    .diagram-section-content {
+        position: relative;
+        background: vars.$bg-color;
+        border-top: 1px solid vars.$border-color;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        padding: $padding;
+        gap: $padding;
+        overflow-x: auto;
+    }
 }

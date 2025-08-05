@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './ValuesSection.scss'
 import { Values, ValuesHeader, ValuesParagraph } from './Content/ValueSectionContent';
+import { ArrowLeftIcon } from '../../../Design/Icons/ArrowLeftIcon/ArrowLeftIcon';
+import { ArrowRightIcon } from '../../../Design/Icons/ArrowRightIcon/ArrowRightIcon';
 
 
 export default function ValuesSection() {
@@ -40,9 +42,7 @@ export default function ValuesSection() {
                         <div className='value-index'>{currentValueIndex + 1}</div>
                     </div>
                     <div className='nav-left nav-button' onClick={handleNavLeft}>
-                        <div className='nav-left-icon'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-left"><path d="M19 12H5"></path><path d="M12 19L5 12"></path><path d="M12 5l7 7"></path></svg>
-                        </div>
+                        <ArrowLeftIcon />
                     </div>
 
 
@@ -57,9 +57,7 @@ export default function ValuesSection() {
 
 
                     <div className='nav-right nav-button' onClick={handleNavRight}>
-                        <div className='nav-right-icon'>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-arrow-right"><path d="M5 12h14"></path><path d="M12 5l7 7"></path><path d="M12 19L5 12"></path></svg>
-                        </div>
+                        <ArrowRightIcon />
                     </div>
 
                     <div className='values-image-wrapper'>

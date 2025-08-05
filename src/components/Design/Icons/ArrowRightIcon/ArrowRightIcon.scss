@@ -1,0 +1,23 @@
+@use '../../../../styles/vars.scss';
+
+.arrow-right-icon {
+    position: relative;
+    width: 25px;
+    height: 25px;
+
+    .cls-1 {
+        fill: none;
+        stroke: vars.$color-black;
+        stroke-width: 2px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+    .cls-2 {
+        fill: none;
+        stroke-width: 2px;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke: vars.$color-black;
+    }
+}

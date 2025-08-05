@@ -16,7 +16,7 @@
 
 
         .logotype {
-            height: 45px;
+            height: 40px;
             flex: 1;
             width: auto;
             img {
@@ -33,7 +33,39 @@
             transition: vars.$transition-fast;
 
             .menu-item {
+                font-size: 13.5493874628376px;
+                font-weight: 300;
+                color: vars.$color-black;
                 white-space: nowrap;
+            }
+
+            .menu-item-1 {
+                display: flex;
+                flex-direction: row-reverse;
+                align-items: center;
+                gap: 10px;
+
+                .plus-icon {
+                    position: relative;
+                    width: 12.5px;
+                    aspect-ratio: 1/1;
+
+                    svg {
+                        line {
+                            stroke-width: 2px;
+                        }
+                    }
+                }
+            }
+
+            .menu-item-1:hover {
+                a::after {
+                    width: 0%;
+                }
+            
+                div::after {
+                    width: 0%;
+                }
             }
         }
     }

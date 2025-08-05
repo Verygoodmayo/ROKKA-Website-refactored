@@ -21,19 +21,22 @@ $primary-color: #131bff;
 $secondary-color: #fff;
 
 $border-color: #0000001b;
+$border-color-light: rgba(255, 255, 255, 0.435);
 
 
 
 // ROKKA Frame 
 $rokka-frame-base-color: $bg-color;
 $rokka-frame-border-color: $border-color;
-$rokka-frame-padding: 30px 0px 30px 0px;
-$corner-size: 30px;
+$corner-size: 20px;
+$rokka-frame-padding: $corner-size 2.5px $corner-size 2.5px;
 $side-width: $corner-size;
 
 
 // Z-index Control
-$menu-z-index: 100;
+$menu-z-index: 103;
+$footer-z-index: 101;
+$modal-window-z-index: 102;
 
 // Typography
 $font-size-10: 10px;

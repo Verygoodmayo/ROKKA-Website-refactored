@@ -26,8 +26,8 @@
 
         .filler {
             position: relative;
-            width: calc(100% + 2px);
-            height: calc(100% + 2px);
+            width: calc(100% + 0px);
+            height: calc(100% + 0px);
             flex: 1;
             background-color: vars.$rokka-frame-base-color;
             border-left: 1px solid vars.$rokka-frame-border-color;

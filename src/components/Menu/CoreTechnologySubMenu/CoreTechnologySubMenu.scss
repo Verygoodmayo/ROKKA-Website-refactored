@@ -16,6 +16,13 @@
         flex-direction: column;
         align-items: flex-start;
         gap: vars.$size-10;
+
+        .core-technology-sub-menu-item {
+            font-size: 13.5493874628376px;
+            font-weight: 300;
+            color: vars.$color-black;
+            white-space: nowrap;
+        }
     }
 
     .core-technology-sub-menu-content-wrapper {
