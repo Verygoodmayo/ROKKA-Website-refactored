@@ -8,11 +8,14 @@
     "type": "git",
     "url": "https://github.com/Verygoodmayo/ROKKA-Website-refactored"
   },
+  "homepage": "https://verygoodmayo.github.io/ROKKA-Website-refactored",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@react-three/drei": "^10.6.1",
