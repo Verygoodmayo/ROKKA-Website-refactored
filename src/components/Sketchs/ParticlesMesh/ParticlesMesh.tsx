@@ -11,11 +11,12 @@ interface ParticlesMeshProps {
     position?: [number, number, number];
     rotation?: [number, number, number];
     frustumCulled?: boolean;
+    cameraPosition: Vector3;
 }
 
 const ParticlesMesh = forwardRef<Points, ParticlesMeshProps>(({ GLBModel, specialUniforms, position, rotation, frustumCulled }, ref) => {
     const materialRef = useRef<ShaderMaterial>(null);
-    const { viewport } = useThree();
+    const { viewport, camera } = useThree();
 
     const uniforms = useMemo(() => {
         const defaultUniforms = {
@@ -27,6 +28,9 @@ const ParticlesMesh = forwardRef<Points, ParticlesMeshProps>(({ GLBModel, specia
             colorIntensity: { value: 0.01 },
             noiseOffset: { value: new Vector3(0, 0, 0) },
             noiseSeed: { value: Math.random() },
+            u_cameraPosition: { value: new Vector3(0, 0, 0) },
+            u_near: { value: 150.5 },
+            u_far: { value: 200.0 }
         };
 
         return {
@@ -41,6 +45,7 @@ const ParticlesMesh = forwardRef<Points, ParticlesMeshProps>(({ GLBModel, specia
     useFrame(({ clock }) => {
         if (materialRef.current) {
             materialRef.current.uniforms.u_time.value = clock.getElapsedTime();
+            materialRef.current.uniforms.u_cameraPosition.value = camera.position;
         }
     });
 

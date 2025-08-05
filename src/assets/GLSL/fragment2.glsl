@@ -4,11 +4,13 @@ varying vec2 vUv;
 float PI = 3.141592653589793238; 
 uniform bool isMobile;
 uniform vec3 u_color;
+uniform float u_near;
+uniform float u_far;
+
+in float v_distance;
 
 void main() {
-
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-
-
-    gl_FragColor = vec4(u_color, 1.0);
+    float alpha = smoothstep(u_far, u_near, v_distance);
+    alpha = smoothstep(0.0, 1.0, alpha);
+    gl_FragColor = vec4(u_color, alpha);
 }

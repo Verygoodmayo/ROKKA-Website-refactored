@@ -4,6 +4,7 @@ import ParticlesSketch from '../ParticlesSketch/ParticlesSketch'
 import './ParkSketch.scss'
 import { forwardRef } from 'react'
 import { Color, Points } from 'three';
+import { useThree } from '@react-three/fiber';
 
 interface ParkSketchProps {
     specialUniforms?: any;
@@ -11,6 +12,7 @@ interface ParkSketchProps {
 }
 
 const ParkSketch = forwardRef<Points, ParkSketchProps>(({ specialUniforms, frustumCulled }, ref) => {
+    const { camera } = useThree();
     const baseUniforms = {
         u_color: { value: new Color('#131bff') },
         particleSize: { value: 100.1 },
@@ -22,6 +24,7 @@ const ParkSketch = forwardRef<Points, ParkSketchProps>(({ specialUniforms, frust
             GLBModel={ParkModel} 
             specialUniforms={{...baseUniforms, ...specialUniforms}} 
             frustumCulled={frustumCulled}
+            cameraPosition={camera.position}
         />
     )
 });

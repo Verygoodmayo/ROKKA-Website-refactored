@@ -6,6 +6,10 @@ uniform float maxDistance;
 uniform vec3 noiseOffset;
 uniform float noiseSeed;
 uniform float particleSize;
+uniform vec3 u_cameraPosition;
+
+out float v_distance;
+out float vDepth;
 
 varying vec2 vUv;
 attribute vec2 reference;
@@ -144,6 +148,8 @@ void main() {
 
     vec3 newPos = position;
 
+    // get the depth of the particle
+
     float f = frequency;
     float amp = amplitude;
     float maxD = maxDistance;
@@ -153,7 +159,11 @@ void main() {
 
     vec3 finalPos = mix(position, target, pow(d, 5.));
 
-    vec4 mvPosition = modelViewMatrix * vec4( finalPos, 1.0 ); 
+    vec4 worldPosition = modelMatrix * vec4(finalPos, 1.0);
+    v_distance = length(worldPosition.xyz - u_cameraPosition);
+
+    vec4 mvPosition = viewMatrix * worldPosition;
+
     
     gl_PointSize = particleSize * ( 1. / - mvPosition.z );
    
